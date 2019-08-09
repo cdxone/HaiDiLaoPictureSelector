@@ -32,6 +32,9 @@ import java.util.List;
 import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
 
+/**
+ * 首页
+ */
 public class MainActivity extends AppCompatActivity implements View.OnClickListener,
         RadioGroup.OnCheckedChangeListener, CompoundButton.OnCheckedChangeListener {
     private final static String TAG = MainActivity.class.getSimpleName();
