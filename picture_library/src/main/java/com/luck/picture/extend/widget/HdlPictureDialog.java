@@ -5,8 +5,8 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
-import android.text.TextUtils;
-import android.util.Log;
+import android.support.annotation.NonNull;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.Window;
 import android.widget.TextView;
@@ -21,6 +21,7 @@ public class HdlPictureDialog extends Dialog {
     public Context context;
     private TextView tips;
     private String mTips;//显示提示内容
+    private OnKeyDownListener mOnKeyDownListener;
 
     public HdlPictureDialog(Context context) {
         super(context, R.style.picture_alert_dialog);
@@ -39,11 +40,6 @@ public class HdlPictureDialog extends Dialog {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.extend_picture_alert_dialog);
         tips = this.findViewById(R.id.tv_tip);
-        //设置提示的值
-        if (mTips != null && !TextUtils.isEmpty(mTips.trim())){
-            tips.setVisibility(View.VISIBLE);
-            tips.setText(mTips);
-        }
     }
 
     /**
@@ -63,4 +59,36 @@ public class HdlPictureDialog extends Dialog {
         }
     }
 
+    /**
+     * 按下返回键
+     * @param keyCode
+     * @param event
+     * @return
+     */
+    @Override
+    public boolean onKeyDown(int keyCode, @NonNull KeyEvent event) {
+        if (isShowing()) {
+            // 当按下返回键的时候,将返回的这个事件传递出去
+            if (mOnKeyDownListener != null){
+                mOnKeyDownListener.onKeyDown();
+            }
+            dismiss();
+        }
+        return super.onKeyDown(keyCode, event);
+    }
+
+    /**
+     * 设置返回键的监听
+     * @param listener
+     */
+    public void setOnKeyDownListener(OnKeyDownListener listener) {
+        mOnKeyDownListener = listener;
+    }
+
+    /**
+     * 返回键的监听
+     */
+    public interface OnKeyDownListener{
+        void onKeyDown();
+    }
 }

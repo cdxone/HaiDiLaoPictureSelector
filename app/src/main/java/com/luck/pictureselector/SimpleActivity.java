@@ -38,7 +38,7 @@ public class SimpleActivity extends AppCompatActivity implements View.OnClickLis
                 break;
             case R.id.btn_show_hdlpicturedialog:
                 HdlPictureDialog dialog = new HdlPictureDialog(this);
-                dialog.setTips("正在加载...");
+//                dialog.setTips("正在加载...");
                 dialog.show();
                 break;
         }
